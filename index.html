@@ -14,6 +14,7 @@
       <select id="toDest"></select>
       <button onclick="bfs()">Run</button>
     </div>
+    <div id="result"></div>
     <script>
       const graph = {
         Yosmel: ["Oslo", "Bergen", "Otta", "Hamar"],
@@ -71,6 +72,7 @@
       const sortedNodes = Object.keys(graph).sort();
       const fromInput = document.getElementById("fromDest");
       const toInput = document.getElementById("toDest");
+      const result = document.getElementById("result");
 
       sortedNodes.forEach((nodeName) => {
         fromInput.appendChild(new Option(nodeName, nodeName));
@@ -81,8 +83,49 @@
       toInput.value = "";
 
       function bfs() {
-        // alert("Hello world");
+        const startNode = fromInput.value;
+        const targetNode = toInput.value;
+
+        const visited = new Set(); // We are going to track the nodes we have visited
+        const queue = [startNode]; // We the search from the startingNode
+        const parentMap = { [startNode]: null }; // We are going to keep track of the parent that led to the current node in order to construct a path
+
+        // Loop for as long as there are items in the queue to visit
+        while (queue.length > 0) {
+          const currentNode = queue.shift();
+
+          if (visited.has(currentNode)) continue; // Skip this iteration and go to the next if we have already been through this node
+          visited.add(currentNode); // otherwise add it to visited
+
+          // Now that we declared this is an unvisisted node, lets explore the neighbours of the current node
+          graph[currentNode].forEach((neighbor) => {
+            // If we havent visited this neighbor yet, add it to the queue
+            if (!visited.has(neighbor)) {
+              queue.push(neighbor);
+              parentMap[neighbor] = currentNode;
+            }
+
+            if (neighbor === targetNode) {
+              const path = [];
+              let current = targetNode;
+
+              while (current) {
+                path.unshift(current);
+                current = parentMap[current];
+              }
+
+              result.innerHTML = `
+              <div>Shortest path in <strong>${path.length - 1}</strong> steps:</div>
+              <div class="path">${path.join(" → ")}</div>
+            `;
+              return;
+            }
+          });
+        }
+        // result.innerHTML = "No path found";
       }
+
+      function renderResult(path) {}
     </script>
   </body>
 </html>
