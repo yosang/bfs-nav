@@ -5,5 +5,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BFS Nav</title>
   </head>
-  <body></body>
+  <body>
+    <h1>Breath-First-Search</h1>
+    <div id="controls">
+      From
+      <select id="fromDest"></select>
+      To
+      <select id="toDest"></select>
+      <button onclick="bfs()">Run</button>
+    </div>
+    <script>
+      const graph = {
+        Yosmel: ["Oslo", "Bergen", "Otta", "Hamar"],
+
+        // Innlandet / Gudbrandsdalen / Valdres
+        Hamar: ["Oslo", "Lillehammer", "Gjøvik"],
+        Lillehammer: ["Hamar", "Gjøvik", "Fagernes", "Ringebu", "Oslo"],
+        Fagernes: ["Lillehammer", "Beitostølen", "Sogndal"],
+        Beitostølen: ["Fagernes"],
+        Ringebu: ["Lillehammer", "Otta", "Vinstra"],
+        Otta: ["Ringebu", "Lom", "Vågå", "Vinstra"],
+        Lom: ["Otta", "Sogndal", "Geiranger"],
+        Vågå: ["Otta"],
+        Vinstra: ["Otta", "Ringebu"],
+        Gjøvik: ["Hamar", "Lillehammer", "Raufoss"],
+        Raufoss: ["Gjøvik"],
+        Sogndal: ["Fagernes", "Lom", "Flåm"],
+
+        // Oslo og omegn
+        Oslo: ["Hamar", "Lillehammer", "Drammen", "Lillestrøm", "Sandvika", "Gardermoen", "Ålesund", "Bergen"],
+        Drammen: ["Oslo", "Kongsberg", "Hokksund"],
+        Kongsberg: ["Drammen", "Notodden"],
+        Notodden: ["Kongsberg"],
+        Hokksund: ["Drammen"],
+        Lillestrøm: ["Oslo", "Jessheim", "Gardermoen"],
+        Jessheim: ["Lillestrøm"],
+        Gardermoen: ["Oslo", "Lillestrøm"],
+        Sandvika: ["Oslo"],
+
+        // Vestlandet – Bergensbanen og fjorder nå gjensidig
+        Bergen: ["Oslo", "Voss", "Stavanger", "Flåm"],
+        Voss: ["Bergen", "Flåm", "Myrdal"],
+        Myrdal: ["Voss", "Flåm"],
+        Flåm: ["Bergen", "Voss", "Myrdal", "Sogndal", "Gudvangen", "Aurland"],
+        Gudvangen: ["Flåm"],
+        Aurland: ["Flåm"],
+
+        // Sørvestlandet
+        Stavanger: ["Bergen", "Sandnes", "Kristiansand", "Haugesund"],
+        Sandnes: ["Stavanger"],
+        Kristiansand: ["Stavanger"],
+        Haugesund: ["Stavanger", "Odda"],
+        Odda: ["Haugesund", "Trolltunga"],
+        Trolltunga: ["Odda"],
+
+        // Nordvest / Ålesund-området
+        Ålesund: ["Oslo", "Geiranger", "Molde", "Åndalsnes"],
+        Geiranger: ["Ålesund", "Lom", "Valldal", "Trollstigen"],
+        Valldal: ["Geiranger"],
+        Åndalsnes: ["Ålesund", "Trollstigen", "Molde"],
+        Trollstigen: ["Geiranger", "Åndalsnes"],
+        Molde: ["Ålesund", "Åndalsnes"],
+      };
+
+      const sortedNodes = Object.keys(graph).sort();
+      const fromInput = document.getElementById("fromDest");
+      const toInput = document.getElementById("toDest");
+
+      sortedNodes.forEach((nodeName) => {
+        fromInput.appendChild(new Option(nodeName, nodeName));
+        toInput.appendChild(new Option(nodeName, nodeName));
+      });
+
+      fromInput.value = "";
+      toInput.value = "";
+
+      function bfs() {
+        // alert("Hello world");
+      }
+    </script>
+  </body>
 </html>
