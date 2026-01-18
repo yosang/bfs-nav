@@ -1,1 +1,1 @@
-Demonstration of Breadth-First-Search (BFS) implementation using an adjancency list in JavaScript.
+Demonstration of Breadth-First-Search (BFS) implementation using an adjancency list in JavaScript to find the shortest path between two points in a graph.
